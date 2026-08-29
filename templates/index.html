@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Prédiction Prix Maison
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>🏠 Prédiction du prix d'une maison</h1>
+
+    <p class="subtitle">
+        Modèle Machine Learning — SVR
+    </p>
+
+
+    {% if prediction is not none %}
+
+    <div class="result">
+
+        <p>Prix prédit :</p>
+
+        <h2>
+            {{ "{:,.0f}".format(prediction) }} $
+        </h2>
+
+    </div>
+
+    {% endif %}
+
+
+    {% if error %}
+
+    <div class="error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+
+        <div class="grid">
+
+
+            <div>
+                <label>Surface habitable</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="sqft_living"
+                    value="2000"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Surface terrain</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="sqft_lot"
+                    value="5000"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Surface au-dessus</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="sqft_above"
+                    value="1800"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Sous-sol</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="sqft_basement"
+                    value="200"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Surface voisins</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="sqft_living15"
+                    value="1800"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Terrain voisins</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="sqft_lot15"
+                    value="5000"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Chambres</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="bedrooms"
+                    value="3"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Salles de bain</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="bathrooms"
+                    value="2"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Étages</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="floors"
+                    value="1"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Condition (1-5)</label>
+
+                <input
+                    type="number"
+                    min="1"
+                    max="5"
+                    name="condition"
+                    value="3"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Grade (1-13)</label>
+
+                <input
+                    type="number"
+                    min="1"
+                    max="13"
+                    name="grade"
+                    value="7"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Vue (0-4)</label>
+
+                <input
+                    type="number"
+                    min="0"
+                    max="4"
+                    name="view"
+                    value="0"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Waterfront</label>
+
+                <select name="waterfront">
+
+                    <option value="0">
+                        Non
+                    </option>
+
+                    <option value="1">
+                        Oui
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div>
+                <label>Année construction</label>
+
+                <input
+                    type="number"
+                    name="yr_built"
+                    value="1990"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Année rénovation</label>
+
+                <input
+                    type="number"
+                    name="yr_renovated"
+                    value="0"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Latitude</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="lat"
+                    value="47.5"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Longitude</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="long"
+                    value="-122.2"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Code postal</label>
+
+                <input
+                    type="text"
+                    name="zipcode"
+                    value="98001"
+                    required>
+            </div>
+
+
+            <div>
+                <label>Date de vente</label>
+
+                <input
+                    type="date"
+                    name="date"
+                    value="2015-05-01"
+                    required>
+            </div>
+
+        </div>
+
+
+        <button type="submit">
+            🔮 Prédire le prix
+        </button>
+
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
